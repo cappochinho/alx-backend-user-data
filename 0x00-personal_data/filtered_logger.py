@@ -21,9 +21,9 @@ def filter_datum(fields: List[str], redaction: str, message: str,
 class RedactingFormatter(logging.Formatter):
     """Redacting Formatter class"""
 
-    REDACTION = "***"
+    REDACTION: str = "***"
     FORMAT: str = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
+    SEPARATOR: str = ";"
 
     def __init__(self, fields: List[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
