@@ -7,7 +7,6 @@ import re
 import logging
 
 
-
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
     """Filters data using a regex"""
@@ -22,7 +21,8 @@ class RedactingFormatter(logging.Formatter):
     """Redacting Formatter class"""
 
     REDACTION: str = "***"
-    FORMAT: str = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    FORMAT: str
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR: str = ";"
 
     def __init__(self, fields: List[str]):
@@ -35,4 +35,5 @@ class RedactingFormatter(logging.Formatter):
         """Outputs the correct format of the log records"""
 
         message: str = super().format(record)
-        return filter_datum(self.fields, self.REDACTION, message, self.SEPARATOR)
+        output: tuple = self.fields, self.REDACTION, message, self.SEPARATOR
+        return filter_datum(output[0], output[1], output[2])
