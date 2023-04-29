@@ -26,9 +26,13 @@ class RedactingFormatter(logging.Formatter):
     SEPARATOR: str = ";"
 
     def __init__(self, fields: List[str]):
+        """Init method: Initializes a new instance of the class"""
+
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields: List[str] = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        """Outputs the correct format of the log records"""
+
         message: str = super().format(record)
         return filter_datum(self.fields, self.REDACTION, message, self.SEPARATOR)
