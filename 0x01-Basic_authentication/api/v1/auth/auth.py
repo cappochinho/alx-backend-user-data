@@ -8,7 +8,7 @@ from flask import request
 
 
 class Auth():
-    """The authentication class
+    """The Basic authentication class
     """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
@@ -21,16 +21,23 @@ class Auth():
         if excluded_paths == None or excluded_paths == []:
             return True
 
-        for excluded_path in excluded_paths:
-            if path.rstrip("/") == excluded_path.rstrip("/"):
-                return False
+        if path[len(path)-1] != '/':
+            path += '/'
+
+        if path in excluded_paths:
+            return False
         return True
 
     def authorization_header(self, request=None) -> str:
         """Authorization header
         """
 
-        return None
+        if request is None:
+            return None
+
+        if not request.headers.get('Authorization'):
+            return None
+        return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Undescribed for now
