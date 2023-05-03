@@ -56,10 +56,10 @@ def before_request_handler():
     if path not in paths and not auth.require_auth(request.path, paths):
         return
 
-    if auth.authorization_header(request) == None:
+    if auth.authorization_header(request) is None:
         abort(401)
 
-    if auth.current_user(request) == None:
+    if auth.current_user(request) is None:
         abort(403)
 
 
