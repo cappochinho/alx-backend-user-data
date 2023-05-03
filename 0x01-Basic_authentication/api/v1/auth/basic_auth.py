@@ -25,7 +25,7 @@ class BasicAuth(Auth):
         if type(authorization_header) != str:
             return None
 
-        if authorization_header[0:6] != "Basic ":
+        if authorization_header[:6] != "Basic ":
             return None
 
         else:
@@ -97,3 +97,28 @@ class BasicAuth(Auth):
             return None
 
         return user
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Sets up basic authentication
+        """
+
+        if request is None:
+            return None
+
+        auth_header = self.authorization_header(request)
+        if auth_header is None:
+            return None
+
+        en_credentials = self.extract_base64_authorization_header(auth_header)
+        if en_credentials is None:
+            return None
+
+        credentials = self.decode_base64_authorization_header(en_credentials)
+        if credentials is None:
+            return None
+
+        user_email, user_pwd = self.extract_user_credentials(credentials)
+        if user_email is None or user_pwd is None:
+            return None
+
+        return self.user_object_from_credentials(user_email, user_pwd)
