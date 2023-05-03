@@ -12,13 +12,13 @@ class Auth():
     """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Check 
+        """Check
         """
 
         if path is None:
             return True
 
-        if excluded_paths == None or excluded_paths == []:
+        if excluded_paths is None or excluded_paths == []:
             return True
 
         if path[len(path)-1] != '/':
