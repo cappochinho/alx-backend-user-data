@@ -82,21 +82,15 @@ class BasicAuth(Auth):
         """Retrieve user from the database using credentials
         """
 
-        if user_email is None or type(user_email) != str:
-            return None
-
-        if user_pwd is None or type(user_pwd) != str:
-            return None
-
-        users = User.search({'email': user_email})
-        if not users:
-            return None
-
-        user = users[0]
-        if not user.is_valid_password(user_pwd):
-            return None
-
-        return user
+        if user_email and user_pwd:
+            try:
+                if type(user_email) is str and type(user_pwd) is str:
+                    res = User.search({'email': user_email})
+                for user in res:
+                    if res[0].is_valid_password(user_pwd):
+                        return res[0]
+            except Exception:
+                return None
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Sets up basic authentication
