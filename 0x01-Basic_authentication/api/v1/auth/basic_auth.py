@@ -71,7 +71,7 @@ class BasicAuth(Auth):
         if ":" not in dec:
             return default_response
         else:
-            credentials = dec.split(":")
+            credentials = dec.split(":", 1)
             return (credentials[0], credentials[1])
 
     def user_object_from_credentials(
