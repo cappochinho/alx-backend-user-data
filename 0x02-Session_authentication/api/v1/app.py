@@ -57,7 +57,7 @@ def before_request_handler():
     """
 
     if auth is None:
-        return
+        return None
 
     path = request.path
     paths = [
