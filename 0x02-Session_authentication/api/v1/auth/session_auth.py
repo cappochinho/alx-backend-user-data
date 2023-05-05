@@ -9,4 +9,3 @@ class SessionAuth(Auth):
     """Contains the properties and methods of the
     session authentication class
     """
-
