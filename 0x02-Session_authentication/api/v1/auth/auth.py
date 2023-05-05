@@ -3,6 +3,7 @@
 This file contains the Auth class
 """
 
+import os
 from typing import List, TypeVar
 from flask import request
 
@@ -46,3 +47,11 @@ class Auth():
         """
 
         return None
+
+    def session_cookie(self, request=None):
+        """returns a cookie value from a request"""
+
+        if request is None:
+            return None
+        _my_session_id = os.environ.get("SESSION_NAME")
+        return request.cookies.get(_my_session_id)
