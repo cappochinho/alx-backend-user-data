@@ -30,7 +30,7 @@ class SessionAuth(Auth):
         return session_id
 
     def user_id_for_session_id(
-        self, 
+        self,
         session_id: str = None
     ) -> str:
         """returns a user_id based on a session_id"""
