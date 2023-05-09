@@ -35,7 +35,7 @@ class DB:
         self,
         email: str,
         hashed_password: str
-    ) -> User:
+    ) -> TypeVar('User'):
         """Returns a User object
         """
 
@@ -43,7 +43,7 @@ class DB:
             email=email,
             hashed_password=hashed_password
         )
-        self._session.add(new_user)
-        self._session.commit()
-
+        with self._session() as session:
+            session.add(new_user)
+            session.commit()
         return new_user
