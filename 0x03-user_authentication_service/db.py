@@ -35,7 +35,7 @@ class DB:
         self,
         email: str,
         hashed_password: str
-    ) -> TypeVar('User'):
+    ) -> User:
         """Returns a User object
         """
 
