@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Module for the app.py file"""
 
-from flask import Flask, abort, jsonify, request, make_response
+from flask import Flask, abort, jsonify, redirect, request, make_response
 from auth import Auth
 
 
@@ -48,6 +48,20 @@ def login():
         return jsonify({"email": email, "message": "logged in"})
     else:
         abort(401)
+
+
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """logout of a session
+    """
+
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        AUTH.destroy_session(user)
+        return redirect('/')
+    else:
+        abort(403)
 
 
 if __name__ == "__main__":
