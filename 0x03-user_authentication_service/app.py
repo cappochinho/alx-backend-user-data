@@ -3,7 +3,7 @@
 
 from flask import Flask, abort, jsonify, request, make_response
 from auth import Auth
-import os
+
 
 app = Flask(__name__)
 AUTH = Auth()
