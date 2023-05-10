@@ -55,10 +55,10 @@ def logout():
     """logout of a session
     """
 
-    session_id = request.form.get("session_id")
+    session_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(session_id)
     if user:
-        AUTH.destroy_session(user)
+        AUTH.destroy_session(user.session_id)
         return redirect('/')
     else:
         abort(403)
