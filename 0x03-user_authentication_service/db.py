@@ -72,5 +72,3 @@ class DB:
             self._session.commit()
         except ValueError:
             raise ValueError
-
-        return None
