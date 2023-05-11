@@ -62,7 +62,9 @@ def logout():
         abort(403)
 
     AUTH.destroy_session(session_id)
-    return redirect('/')
+    response = make_response(redirect('/'))
+    response.set_cookie('session_id', '', expires=0)
+    return response
 
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
