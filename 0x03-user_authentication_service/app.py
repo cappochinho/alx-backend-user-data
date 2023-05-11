@@ -90,9 +90,9 @@ def get_reset_password_token():
 
     email = request.form.get("email")
     reset_token = AUTH.get_reset_password_token(email)
-    if isinstance(reset_token, str):
+    if reset_token:
         return jsonify({"email": email, "reset_token": reset_token}), 200
-    elif reset_token == ValueError:
+    else:
         abort(403)
 
 
