@@ -64,11 +64,11 @@ class DB:
         update the user's attributes, then commit changes to the database
         """
 
-        try:
-            user = self.find_user_by(id=user_id)
-            for k, v in kwargs.items():
-                if hasattr(user, k):
-                    setattr(user, k, v)
-            self._session.commit()
-        except ValueError:
+        user = self.find_user_by(id=user_id)
+        if not user:
             raise ValueError
+        for k, v in kwargs.items():
+            if not hasattr(user, k):
+                raise ValueError
+            setattr(user, k, v)
+        self._session.commit()
